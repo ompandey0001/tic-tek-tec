@@ -4,110 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        /* Your existing CSS styles */
+
+        .win-line {
+            position: absolute;
+            background-color: #00ff00;
+            z-index: -1;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Tic Tac Toe</h1>
-        <div class="board" id="board">
-            <div class="cell" onclick="makeMove(0, 0)"></div>
-            <div class="cell" onclick="makeMove(0, 1)"></div>
-            <div class="cell" onclick="makeMove(0, 2)"></div>
-            <div class="cell" onclick="makeMove(1, 0)"></div>
-            <div class="cell" onclick="makeMove(1, 1)"></div>
-            <div class="cell" onclick="makeMove(1, 2)"></div>
-            <div class="cell" onclick="makeMove(2, 0)"></div>
-            <div class="cell" onclick="makeMove(2, 1)"></div>
-            <div class="cell" onclick="makeMove(2, 2)"></div>
-        </div>
-        <div id="resultModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <div id="result"></div>
-                <button onclick="restart()">New Game</button>
-            </div>
-        </div>
-        <button onclick="restart()" class="restart-btn">Restart Game</button>
-    </div>
-    <script>
-        let currentPlayer = 'X';
-        let board = [
-            ['', '', ''],
-            ['', '', ''],
-            ['', '', '']
-        ];
-        let gameOver = false;
+    <!-- Your existing HTML code -->
 
-        function makeMove(row, col) {
-            if (!gameOver && board[row][col] === '') {
-                board[row][col] = currentPlayer;
-                document.getElementById('board').children[row * 3 + col].innerText = currentPlayer;
-                if (checkWinner()) {
-                    showModal(currentPlayer + " wins!");
-                    gameOver = true;
-                } else if (checkDraw()) {
-                    showModal("It's a draw!");
-                    gameOver = true;
-                } else {
-                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-                }
-            }
-        }
+    <div class="win-line" id="winLine"></div>
 
-        function checkWinner() {
-            for (let i = 0; i < 3; i++) {
-                if (board[i][0] === currentPlayer && board[i][1] === currentPlayer && board[i][2] === currentPlayer) {
-                    return true; // Row win
-                }
-                if (board[0][i] === currentPlayer && board[1][i] === currentPlayer && board[2][i] === currentPlayer) {
-                    return true; // Column win
-                }
-            }
-            if (board[0][0] === currentPlayer && board[1][1] === currentPlayer && board[2][2] === currentPlayer) {
-                return true; // Diagonal win
-            }
-            if (board[0][2] === currentPlayer && board[1][1] === currentPlayer && board[2][0] === currentPlayer) {
-                return true; // Diagonal win
-            }
-            return false;
-        }
-
-        function checkDraw() {
-            for (let row of board) {
-                for (let cell of row) {
-                    if (cell === '') {
-                        return false; // There is an empty cell, game continues
-                    }
-                }
-            }
-            return true; // Board is full, it's a draw
-        }
-
-        function restart() {
-            closeModal();
-            board = [
-                ['', '', ''],
-                ['', '', ''],
-                ['', '', '']
-            ];
-            currentPlayer = 'X';
-            gameOver = false;
-            let cells = document.querySelectorAll('.cell');
-            cells.forEach(cell => {
-                cell.innerText = '';
-            });
-        }
-
-        function showModal(message) {
-            document.getElementById('result').innerText = message;
-            let modal = document.getElementById('resultModal');
-            modal.style.display = 'block';
-        }
-
-        function closeModal() {
-            let modal = document.getElementById('resultModal');
-            modal.style.display = 'none';
-        }
-    </script>
+    <!-- Your existing JavaScript code -->
 </body>
 </html>
